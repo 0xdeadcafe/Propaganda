@@ -26,13 +26,13 @@ Applies structured cognitive analysis (Bloom's Taxonomy + intelligence tradecraf
 ### One-liner (auto-detect framework)
 
 ```bash
-git clone https://github.com/user/propaganda.git /tmp/propaganda && /tmp/propaganda/install.sh
+git clone https://github.com/0xdeadcafe/Propaganda.git /tmp/propaganda && /tmp/propaganda/install.sh
 ```
 
 ### Install for a specific framework
 
 ```bash
-git clone https://github.com/user/propaganda.git /tmp/propaganda
+git clone https://github.com/0xdeadcafe/Propaganda.git /tmp/propaganda
 /tmp/propaganda/install.sh claude      # Claude Code
 /tmp/propaganda/install.sh codex       # OpenAI Codex
 /tmp/propaganda/install.sh chatgpt     # ChatGPT (copies system prompt)

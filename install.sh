@@ -8,7 +8,7 @@
 
 set -euo pipefail
 
-REPO_URL="${PROPAGANDA_REPO_URL:-https://github.com/user/propaganda.git}"
+REPO_URL="${PROPAGANDA_REPO_URL:-https://github.com/0xdeadcafe/Propaganda.git}"
 SKILL_DIR=""
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 

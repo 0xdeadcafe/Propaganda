@@ -23,88 +23,42 @@ Applies structured cognitive analysis (Bloom's Taxonomy + intelligence tradecraf
 
 ## Installation
 
-### One-liner (auto-detect framework)
-
 ```bash
-git clone https://github.com/0xdeadcafe/Propaganda.git /tmp/propaganda && /tmp/propaganda/install.sh
+git clone https://github.com/0xdeadcafe/Propaganda.git
 ```
-
-### Install for a specific framework
-
-```bash
-git clone https://github.com/0xdeadcafe/Propaganda.git /tmp/propaganda
-/tmp/propaganda/install.sh claude      # Claude Code
-/tmp/propaganda/install.sh codex       # OpenAI Codex
-/tmp/propaganda/install.sh chatgpt     # ChatGPT (copies system prompt)
-/tmp/propaganda/install.sh all         # All frameworks
-```
-
-### Install into a specific project
-
-```bash
-./install.sh claude --project-dir ~/my-project
-./install.sh codex --project-dir ~/my-project
-```
-
----
-
-## Framework Details
 
 ### Claude Code
 
-Installs to `.claude/skills/propaganda/` in your project and adds a reference to `CLAUDE.md`.
+Add to your project's `CLAUDE.md`:
 
-Claude Code reads `CLAUDE.md` at project root for instructions. The installer either creates or appends to it.
-
-```bash
-# Manual alternative: just add to your project root
-cp CLAUDE.md ~/my-project/CLAUDE.md
-cp SKILL.md ~/my-project/SKILL.md
 ```
+Read and follow SKILL.md from the propaganda skill for propaganda/narrative analysis.
+```
+
+Or symlink/copy `SKILL.md` into your project.
 
 ### OpenAI Codex
 
-Installs to `.codex/skills/propaganda/` in your project and adds a reference to `AGENTS.md`.
+Add to your project's `AGENTS.md`:
 
-Codex reads `AGENTS.md` at project root for agent instructions. The installer either creates or appends to it.
-
-```bash
-# Manual alternative
-cp AGENTS.md ~/my-project/AGENTS.md
-cp SKILL.md ~/my-project/SKILL.md
 ```
+Read and follow SKILL.md from the propaganda skill for propaganda/narrative analysis.
+```
+
+Or symlink/copy `SKILL.md` into your project.
 
 ### ChatGPT
 
-ChatGPT doesn't support file-based skills. The installer copies the system prompt to `.chatgpt/propaganda-system-prompt.md` for you to paste into:
-
-- **Custom GPT**: Paste into the Instructions field
-- **ChatGPT Projects**: Paste as project instructions
-- **API**: Use as the system message
+Paste the contents of `SKILL.md` into:
+- **Custom GPT**: Instructions field
+- **ChatGPT Projects**: Project instructions
+- **API**: System message
 
 ---
 
-## Repo Structure
+## How it works
 
-```
-propaganda/
-├── SKILL.md          # Complete skill definition (framework-agnostic)
-├── CLAUDE.md         # Claude Code activation instructions
-├── AGENTS.md         # OpenAI Codex activation instructions
-├── install.sh        # Universal installer
-├── README.md
-└── LICENSE           # MIT
-```
-
-## How it works across frameworks
-
-The core skill lives in `SKILL.md` — a structured prompt that any LLM can follow. The framework-specific files (`CLAUDE.md`, `AGENTS.md`) are thin wrappers that tell the agent to read and follow `SKILL.md` when propaganda analysis is requested.
-
-This means:
-- **Any framework** that supports system prompts can use `SKILL.md` directly
-- **Claude Code** auto-loads `CLAUDE.md` → references `SKILL.md`
-- **Codex** auto-loads `AGENTS.md` → references `SKILL.md`
-- **ChatGPT** uses `SKILL.md` content as custom instructions
+The core skill lives in `SKILL.md` — a structured prompt that any LLM can follow. Point your framework's instruction mechanism at it and provide source text as user input.
 
 ## Design Principles
 

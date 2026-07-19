@@ -23,9 +23,8 @@ This is NOT a fact-checker (no external verification). It deconstructs the *stru
 - Detecting propaganda, information operations, or narrative warfare.
 
 ## Do not use when
-- Summarizing content without critical analysis (use a summary skill).
-- Extracting permanent knowledge notes (use a zettelkasten skill).
-- Fact-checking with external sources (out of scope — this analyzes structure, not truth).
+- You only need a summary, not critical analysis.
+- You need to verify facts against external sources (this analyzes structure, not truth).
 
 ## Scripted Shortcuts
 ```bash

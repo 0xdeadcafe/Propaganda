@@ -1,6 +1,6 @@
 # propaganda
 
-An LLM agent skill for detecting and analyzing propaganda, influence operations, and narrative manipulation.
+An LLM agent skill for detecting and analyzing propaganda, influence operations, and narrative manipulation. Works with **pi**, **Claude Code**, **OpenAI Codex**, and **ChatGPT**.
 
 ## What it does
 
@@ -19,31 +19,104 @@ Applies structured cognitive analysis (Bloom's Taxonomy + intelligence tradecraf
 | **STANDARD** | 150-3000 words (articles, speeches) | ~500-1500 words |
 | **DEEP** | > 3000 words (investigations, IO campaigns) | ~1500-3000 words |
 
-## Usage
+---
 
-### With pi
+## Installation
+
+### One-liner (auto-detect framework)
+
 ```bash
+git clone https://github.com/user/propaganda.git /tmp/propaganda && /tmp/propaganda/install.sh
+```
+
+### Install for a specific framework
+
+```bash
+git clone https://github.com/user/propaganda.git /tmp/propaganda
+/tmp/propaganda/install.sh pi          # pi agent
+/tmp/propaganda/install.sh claude      # Claude Code
+/tmp/propaganda/install.sh codex       # OpenAI Codex
+/tmp/propaganda/install.sh chatgpt     # ChatGPT (copies system prompt)
+/tmp/propaganda/install.sh all         # All frameworks
+```
+
+### Install into a specific project
+
+```bash
+./install.sh claude --project-dir ~/my-project
+./install.sh codex --project-dir ~/my-project
+```
+
+---
+
+## Framework Details
+
+### pi
+
+Installs to `~/.pi/agent/skills/propaganda/SKILL.md`
+
+```bash
+# Usage
 cat article.txt | pi -p /skill:propaganda
 curl -s "https://example.com/article" | w3m -dump -T text/html | pi -p /skill:propaganda
 ```
 
-### Framework-agnostic
+### Claude Code
 
-The skill is defined in `SKILL.md` as a structured prompt. It can be used with any LLM agent framework that supports system/skill prompts:
+Installs to `.claude/skills/propaganda/` in your project and adds a reference to `CLAUDE.md`.
 
-1. Feed the contents of `SKILL.md` as a system prompt or skill instruction
-2. Provide the source text (article, post, etc.) as user input
-3. The LLM will produce structured analysis following the framework
+Claude Code reads `CLAUDE.md` at project root for instructions. The installer either creates or appends to it.
 
-## Installation
-
-### pi (symlink into skills directory)
 ```bash
-ln -s /path/to/propaganda ~/.pi/agent/skills/propaganda
+# Manual alternative: just add to your project root
+cp CLAUDE.md ~/my-project/CLAUDE.md
+cp SKILL.md ~/my-project/SKILL.md
 ```
 
-### Other frameworks
-Copy or reference `SKILL.md` according to your framework's skill/prompt loading mechanism.
+### OpenAI Codex
+
+Installs to `.codex/skills/propaganda/` in your project and adds a reference to `AGENTS.md`.
+
+Codex reads `AGENTS.md` at project root for agent instructions. The installer either creates or appends to it.
+
+```bash
+# Manual alternative
+cp AGENTS.md ~/my-project/AGENTS.md
+cp SKILL.md ~/my-project/SKILL.md
+```
+
+### ChatGPT
+
+ChatGPT doesn't support file-based skills. The installer copies the system prompt to `.chatgpt/propaganda-system-prompt.md` for you to paste into:
+
+- **Custom GPT**: Paste into the Instructions field
+- **ChatGPT Projects**: Paste as project instructions
+- **API**: Use as the system message
+
+---
+
+## Repo Structure
+
+```
+propaganda/
+├── SKILL.md          # Complete skill definition (framework-agnostic)
+├── CLAUDE.md         # Claude Code activation instructions
+├── AGENTS.md         # OpenAI Codex activation instructions
+├── install.sh        # Universal installer
+├── README.md
+└── LICENSE           # MIT
+```
+
+## How it works across frameworks
+
+The core skill lives in `SKILL.md` — a structured prompt that any LLM can follow. The framework-specific files (`CLAUDE.md`, `AGENTS.md`) are thin wrappers that tell the agent to read and follow `SKILL.md` when propaganda analysis is requested.
+
+This means:
+- **Any framework** that supports system prompts can use `SKILL.md` directly
+- **Claude Code** auto-loads `CLAUDE.md` → references `SKILL.md`
+- **Codex** auto-loads `AGENTS.md` → references `SKILL.md`
+- **pi** loads `SKILL.md` directly as a skill
+- **ChatGPT** uses `SKILL.md` content as custom instructions
 
 ## Design Principles
 

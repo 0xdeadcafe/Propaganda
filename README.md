@@ -69,7 +69,7 @@ The core skill lives in `SKILL.md` — a structured prompt that any LLM can foll
 
 ## Credits
 
-Inspired by [@schwalm5132](https://github.com/schwalm5132)
+Inspired by [@schwalm5132](https://x.com/schwalm5132)
 
 ## License
 

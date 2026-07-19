@@ -3,7 +3,7 @@
 # Install via: curl -fsSL <raw-git-url>/install.sh | bash
 # Or clone and run: git clone <repo-url> && cd propaganda && ./install.sh [target]
 #
-# Targets: pi, claude, codex, chatgpt, all
+# Targets: claude, codex, chatgpt, all
 # If no target specified, installs for all detected frameworks.
 
 set -euo pipefail
@@ -27,7 +27,6 @@ usage() {
 Usage: ./install.sh [target...]
 
 Targets:
-  pi        Install as pi agent skill (~/.pi/agent/skills/propaganda/)
   claude    Install for Claude Code (copies CLAUDE.md + SKILL.md to project)
   codex     Install for OpenAI Codex (copies AGENTS.md + SKILL.md to project)
   chatgpt   Print system prompt for ChatGPT custom instructions
@@ -38,12 +37,12 @@ Options:
   --help              Show this help
 
 Examples:
-  ./install.sh pi                          # Install for pi globally
   ./install.sh claude --project-dir ~/app  # Add to a Claude Code project
+  ./install.sh codex                       # Add to current project for Codex
   ./install.sh all                         # Install everywhere possible
   
 Git URL install:
-  git clone <repo-url> /tmp/propaganda && /tmp/propaganda/install.sh pi
+  git clone <repo-url> /tmp/propaganda && /tmp/propaganda/install.sh claude
 EOF
     exit 0
 }
@@ -71,11 +70,6 @@ done
 if [[ ${#TARGETS[@]} -eq 0 ]]; then
     echo "No target specified. Detecting frameworks..."
     
-    # Check for pi
-    if command -v pi &>/dev/null || [[ -d "$HOME/.pi" ]]; then
-        TARGETS+=(pi)
-    fi
-    
     # Check for claude
     if command -v claude &>/dev/null || [[ -f "$PROJECT_DIR/CLAUDE.md" ]]; then
         TARGETS+=(claude)
@@ -87,18 +81,10 @@ if [[ ${#TARGETS[@]} -eq 0 ]]; then
     fi
     
     if [[ ${#TARGETS[@]} -eq 0 ]]; then
-        echo "No frameworks detected. Installing for pi (default)."
-        TARGETS=(pi)
+        echo "No frameworks detected. Installing for claude (default)."
+        TARGETS=(claude)
     fi
 fi
-
-install_pi() {
-    local dest="$HOME/.pi/agent/skills/propaganda"
-    echo "Installing for pi → $dest"
-    mkdir -p "$dest"
-    cp "$SKILL_DIR/SKILL.md" "$dest/SKILL.md"
-    echo "✓ pi skill installed. Use with: pi -p /skill:propaganda"
-}
 
 install_claude() {
     local dest="$PROJECT_DIR/.claude/skills/propaganda"
@@ -175,12 +161,10 @@ install_chatgpt() {
 # Execute installations
 for target in "${TARGETS[@]}"; do
     case "$target" in
-        pi)      install_pi ;;
         claude)  install_claude ;;
         codex)   install_codex ;;
         chatgpt) install_chatgpt ;;
         all)
-            install_pi
             install_claude
             install_codex
             install_chatgpt

@@ -1,6 +1,6 @@
 # propaganda
 
-An LLM agent skill for detecting and analyzing propaganda, influence operations, and narrative manipulation. Works with **pi**, **Claude Code**, **OpenAI Codex**, and **ChatGPT**.
+An LLM agent skill for detecting and analyzing propaganda, influence operations, and narrative manipulation. Works with **Claude Code**, **OpenAI Codex**, and **ChatGPT**.
 
 ## What it does
 
@@ -33,7 +33,6 @@ git clone https://github.com/user/propaganda.git /tmp/propaganda && /tmp/propaga
 
 ```bash
 git clone https://github.com/user/propaganda.git /tmp/propaganda
-/tmp/propaganda/install.sh pi          # pi agent
 /tmp/propaganda/install.sh claude      # Claude Code
 /tmp/propaganda/install.sh codex       # OpenAI Codex
 /tmp/propaganda/install.sh chatgpt     # ChatGPT (copies system prompt)
@@ -50,16 +49,6 @@ git clone https://github.com/user/propaganda.git /tmp/propaganda
 ---
 
 ## Framework Details
-
-### pi
-
-Installs to `~/.pi/agent/skills/propaganda/SKILL.md`
-
-```bash
-# Usage
-cat article.txt | pi -p /skill:propaganda
-curl -s "https://example.com/article" | w3m -dump -T text/html | pi -p /skill:propaganda
-```
 
 ### Claude Code
 
@@ -115,7 +104,6 @@ This means:
 - **Any framework** that supports system prompts can use `SKILL.md` directly
 - **Claude Code** auto-loads `CLAUDE.md` → references `SKILL.md`
 - **Codex** auto-loads `AGENTS.md` → references `SKILL.md`
-- **pi** loads `SKILL.md` directly as a skill
 - **ChatGPT** uses `SKILL.md` content as custom instructions
 
 ## Design Principles

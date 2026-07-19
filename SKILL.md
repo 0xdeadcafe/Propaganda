@@ -29,10 +29,12 @@ This is NOT a fact-checker (no external verification). It deconstructs the *stru
 
 ## Scripted Shortcuts
 ```bash
-cat article.txt | pi -p /skill:propaganda
-curl -s "https://example.com/article" | w3m -dump -T text/html | pi -p /skill:propaganda
-pbpaste | pi -p /skill:propaganda
+cat article.txt | <agent> --skill propaganda
+curl -s "https://example.com/article" | w3m -dump -T text/html | <agent> --skill propaganda
+pbpaste | <agent> --skill propaganda
 ```
+
+Replace `<agent>` with your framework's CLI (e.g., `claude`, `codex`, or equivalent).
 
 ## Inputs required
 - Source text (article, post, transcript, headline).

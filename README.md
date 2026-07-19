@@ -67,6 +67,10 @@ The core skill lives in `SKILL.md` — a structured prompt that any LLM can foll
 - **Not a fact-checker** — deconstructs narrative structure, doesn't verify claims externally
 - **Proportional** — extraordinary claims get extraordinary skepticism, mundane claims get benefit of doubt
 
+## Credits
+
+Inspired by [@schwalm5132](https://github.com/schwalm5132)
+
 ## License
 
 MIT
